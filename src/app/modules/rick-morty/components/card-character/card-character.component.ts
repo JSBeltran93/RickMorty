@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MessageService, PrimeIcons } from 'primeng/api';
+
 import { Character } from '../../interface/characters.interface';
 
 @Component({
