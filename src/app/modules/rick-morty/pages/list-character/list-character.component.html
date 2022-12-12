@@ -1,0 +1,56 @@
+<app-spinner [showSpinner]="!characters"></app-spinner>
+
+<div class="mb-5 border-round shadow-3" *ngIf="characters">
+  <p-dataView
+    #dv
+    [value]="characters"
+    [paginator]="true"
+    [rows]="20"
+    filterBy="name"
+    layout="grid"
+    [lazy]="true"
+    [totalRecords]="info.count"
+    (onLazyLoad)="onChangePage($event)"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} personajes"
+    emptyMessage="Sin resultados"
+  >
+    <ng-template pTemplate="header">
+      <div class="flex flex-column md:flex-row md:justify-content-between">
+        <p-dropdown
+          placeholder="Seleccionar estado"
+          styleClass="mb-2 md:mb-0"
+          class="w-14rem font-normal"
+          (onChange)="onSortChange($event)"
+          emptyFilterMessage="Sin resultados"
+          emptyMessage="Sin resultados"
+          emptyFilterMessage="Sin resultados"
+          optionLabel="state"
+          [options]="status"
+          [showClear]="true"
+        ></p-dropdown>
+        <span class="p-input-icon-left mb-2 md:mb-0">
+          <i class="pi pi-search"></i>
+          <input
+            type="search"
+            pInputText
+            placeholder="Buscar"
+            [(ngModel)]="searchByName"
+            (keyup)="onFilter($any($event.target).value)"
+          />
+        </span>
+        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+      </div>
+    </ng-template>
+    <ng-template let-character pTemplate="listItem">
+      <div class="col-12">
+        <app-list-item [character]="character"></app-list-item>
+      </div>
+    </ng-template>
+    <ng-template let-character pTemplate="gridItem">
+      <div class="col-12 sm:col-6 md:col-4 lg:col-3">
+        <app-card-character [character]="character"></app-card-character>
+      </div>
+    </ng-template>
+  </p-dataView>
+</div>

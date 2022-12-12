@@ -1,0 +1,69 @@
+export interface Characters {
+  info: Info;
+  results: Character[];
+}
+
+export interface Info {
+  count: number;
+  pages: number;
+  next: string;
+  prev: null;
+}
+
+export interface Character {
+  id: number;
+  name: string;
+  status: Status;
+  species: Species;
+  type: string;
+  gender: Gender;
+  origin: Location;
+  location: Location;
+  image: string;
+  episode: string[];
+  url: string;
+  created: Date;
+}
+
+export enum Gender {
+  Female = 'Female',
+  Male = 'Male',
+  Unknown = 'Unknown',
+  Genderless = 'Genderless',
+}
+
+export interface Location {
+  id: number;
+  name: string;
+  url: string;
+  type: string;
+  dimension: string;
+  residents: string[];
+  created: Date;
+}
+
+export interface Episodes {
+  info: Info;
+  results: Episode[];
+}
+
+export interface Episode {
+  id: number;
+  name: string;
+  air_date: string;
+  episode: string;
+  url: string;
+  characters: string[];
+  created: Date;
+}
+
+export enum Species {
+  Alien = 'Alien',
+  Human = 'Human',
+}
+
+export enum Status {
+  Alive = 'Alive',
+  Dead = 'Dead',
+  Unknown = 'Unknown',
+}

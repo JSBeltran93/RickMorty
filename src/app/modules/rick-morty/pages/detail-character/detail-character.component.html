@@ -1,0 +1,88 @@
+<app-spinner
+  [showSpinner]="!character && !episodes && !location && !origin"
+  *ngIf="!character && !episodes && !location && !origin; else detailCharacter"
+></app-spinner>
+<ng-template #detailCharacter>
+  <p-card [style]="{ width: 'auto' }" styleClass="shadow-4" *ngIf="character">
+    <button
+      pButton
+      type="button"
+      label="Regresar"
+      icon="pi pi-arrow-left"
+      class="p-button-secondary p-button-text mb-3 mt-0"
+      (click)="goToListCharacters()"
+      pTooltip="Listado de personajes"
+    ></button>
+    <div class="grid">
+      <div class="col-12 md:col-6 lg:col-4">
+        <img
+          [alt]="character.name"
+          [src]="character.image"
+          class="w-full shadow-3 border-round"
+        />
+      </div>
+      <div class="col-12 md:col-6 lg:col-8">
+        <h1 class="card_title">
+          {{ character.name }}
+        </h1>
+        <p class="card_subtitle">
+          <strong>Especie: </strong>{{ character.species }}
+        </p>
+        <p>
+          <strong>Estado: </strong>
+          {{ character.status }}
+        </p>
+        <p>
+          <strong>Género: </strong>
+          {{ character.gender }}
+        </p>
+        <p-tabView>
+          <p-tabPanel header="Locación">
+            <p class="card_title">
+              <strong>Dimensión</strong>:
+              {{ location.dimension ? location.dimension : "" }}
+            </p>
+            <p class="card_title">
+              <strong>Nombre</strong>: {{ location.name }}
+            </p>
+            <p class="card_title"><strong>Tipo</strong>: {{ location.type }}</p>
+          </p-tabPanel>
+
+          <p-tabPanel header="Origen">
+            <p class="card_title">
+              <strong>Dimensión</strong>: {{ origin.dimension }}
+            </p>
+            <p class="card_title"><strong>Nombre</strong>: {{ origin.name }}</p>
+            <p class="card_title"><strong>Tipo</strong>: {{ origin.type }}</p>
+          </p-tabPanel>
+        </p-tabView>
+      </div>
+    </div>
+    <div>
+      <h3 class="card_title">Episodios en los cuales participa</h3>
+      <div class="card">
+        <p-table
+          [value]="episodes"
+          [paginator]="true"
+          [rows]="10"
+          [tableStyle]="{ 'min-width': '50rem' }"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th id="episode">Episodio</th>
+              <th id="name">Nombre</th>
+              <th id="date">Fecha de publicación</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-episode>
+            <tr>
+              <td>{{ episode.episode }}</td>
+              <td>{{ episode.name }}</td>
+              <td>{{ episode.air_date }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </p-card>
+</ng-template>
